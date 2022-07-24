@@ -9,22 +9,50 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      generalInfo: {
-        firstName: { text: "", id: uniqid() },
-        lastName: { text: "", id: uniqid() },
-        email: { text: "", id: uniqid() },
-        phone: { text: "", id: uniqid() },
+      firstName: { text: "" },
+      lastName: { text: "" },
+      email: { text: "" },
+      phone: { text: "" },
+      educationInfo: {
+        id: uniqid(),
+        schoolName: { text: "" },
+        title: { text: "" },
+        startDate: { text: "" },
+        endDate: { text: "" },
       },
+      educationArray: [],
     };
   }
 
   handleChange = (element, targetState) => {
     this.setState({
       [targetState]: {
-        text: element.target.value
-      }
+        text: element.target.value,
+      },
     });
     console.log(this.state);
+  };
+
+  handleChangeEducation = (element, targetState) => {
+    this.setState((prevState) => {
+      let educationInfo = Object.assign({}, prevState.educationInfo); // creating copy of state variable jasper
+      educationInfo[targetState] = element.target.value; // update the name property, assign a new value
+      return { educationInfo }; // return new object jasper object
+    });
+  };
+
+  onSubmit = (element) => {
+    element.preventDefault();
+    this.setState({
+      educationArray: this.state.tasks.concat(this.state.task),
+      educationInfo: {
+        id: uniqid(),
+        schoolName: { text: "" },
+        title: { text: "" },
+        startDate: { text: "" },
+        endDate: { text: "" },
+      },
+    });
   };
 
   render() {
@@ -32,9 +60,17 @@ class App extends Component {
       <div>
         <form>
           <GeneralInfo handleChange={this.handleChange.bind(this)} />
-          <EducationInfo handleChange={this.handleChange.bind(this)}/>
-          <ExperienceInfo handleChange={this.handleChange.bind(this)}/>
-          <Overview/>
+          <EducationInfo
+            handleChange={this.handleChangeEducation.bind(this)}
+            onSubmit={this.onSubmit.bind(this)}
+          />
+          <ExperienceInfo handleChange={this.handleChange.bind(this)} />
+          <Overview
+            firstName={this.state.firstName.text}
+            lastName={this.state.lastName.text}
+            email={this.state.email.text}
+            phone={this.state.phone.text}
+          />
         </form>
       </div>
     );

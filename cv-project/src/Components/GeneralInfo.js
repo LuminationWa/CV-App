@@ -16,13 +16,13 @@ class GeneralInfo extends Component {
           <input
             type="text"
             id="first-name"
-            onChange={(e) => this.props.handleChange(e, "FirstName")}
+            onChange={(e) => this.props.handleChange(e, "firstName")}
           />
           <label htmlFor="last-name">Last Name</label>
           <input
             type="text"
             id="last-name"
-            onChange={(e) => this.props.handleChange(e, "LastName")}
+            onChange={(e) => this.props.handleChange(e, "lastName")}
           />
           <label htmlFor="email">Email</label>
           <input
@@ -34,10 +34,8 @@ class GeneralInfo extends Component {
           <input
             type="text"
             id="phone-number"
-            onChange={(e) => this.props.handleChange(e, "Phone")}
+            onChange={(e) => this.props.handleChange(e, "phone")}
           />
-          <button type="submit">Add</button>
-          <button type="">Delete</button>
         </form>
       </div>
     );
