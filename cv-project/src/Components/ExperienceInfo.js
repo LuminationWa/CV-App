@@ -53,7 +53,6 @@ class ExperienceInfo extends Component {
           >
             Add
           </button>
-          <button type="button">Edit</button>
         </form>
       </div>
     );

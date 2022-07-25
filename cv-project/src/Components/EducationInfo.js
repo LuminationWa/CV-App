@@ -52,7 +52,6 @@ class EducationInfo extends Component {
           >
             Add
           </button>
-          <button type="button">Clear</button>
         </form>
       </div>
     );

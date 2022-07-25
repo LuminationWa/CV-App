@@ -4,6 +4,7 @@ import EducationInfo from "./Components/EducationInfo";
 import ExperienceInfo from "./Components/ExperienceInfo";
 import Overview from "./Components/Overview";
 import uniqid from "uniqid";
+import "./styles/styles.css"
 
 class App extends Component {
   constructor() {
@@ -97,23 +98,27 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <PersonalInfo handleChange={this.handleChange.bind(this)} />
-        <EducationInfo
-          handleChange={this.handleChange.bind(this)}
-          onSubmitInfo={this.onSubmitInfo.bind(this)}
-          educationInfo={this.state.educationInfo}
-        />
-        <ExperienceInfo
-          handleChange={this.handleChange.bind(this)}
-          onSubmitInfo={this.onSubmitInfo.bind(this)}
-          workExperience={this.state.workExperience}
-        />
-        <Overview
-          personalInfo={this.state.personalInfo}
-          education={this.state.educationArray}
-          workExperience={this.state.workExperienceArray}
-        />
+      <div id="main-content">
+        <div id="form">
+          <PersonalInfo handleChange={this.handleChange.bind(this)} />
+          <EducationInfo
+            handleChange={this.handleChange.bind(this)}
+            onSubmitInfo={this.onSubmitInfo.bind(this)}
+            educationInfo={this.state.educationInfo}
+          />
+          <ExperienceInfo
+            handleChange={this.handleChange.bind(this)}
+            onSubmitInfo={this.onSubmitInfo.bind(this)}
+            workExperience={this.state.workExperience}
+          />
+        </div>
+        <div id="overview">
+          <Overview
+            personalInfo={this.state.personalInfo}
+            education={this.state.educationArray}
+            workExperience={this.state.workExperienceArray}
+          />
+        </div>
       </div>
     );
   }
