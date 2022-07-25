@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 
-class GeneralInfo extends Component {
+class PersonalInfo extends Component {
   constructor() {
     super();
   }
 
   render() {
-    // const { firstName, lastName, email, phone } = this.state;
-
     return (
       <div>
         <h1>Personal information</h1>
@@ -16,25 +14,33 @@ class GeneralInfo extends Component {
           <input
             type="text"
             id="first-name"
-            onChange={(e) => this.props.handleChange(e, "firstName")}
+            onChange={(e) =>
+              this.props.handleChange(e, "personalInfo", "firstName")
+            }
           />
           <label htmlFor="last-name">Last Name</label>
           <input
             type="text"
             id="last-name"
-            onChange={(e) => this.props.handleChange(e, "lastName")}
+            onChange={(e) =>
+              this.props.handleChange(e, "personalInfo", "lastName")
+            }
           />
           <label htmlFor="email">Email</label>
           <input
             type="text"
             id="email"
-            onChange={(e) => this.props.handleChange(e, "email")}
+            onChange={(e) =>
+              this.props.handleChange(e, "personalInfo", "email")
+            }
           />
           <label htmlFor="phone-number">Phone Number</label>
           <input
             type="text"
             id="phone-number"
-            onChange={(e) => this.props.handleChange(e, "phone")}
+            onChange={(e) =>
+              this.props.handleChange(e, "personalInfo", "phone")
+            }
           />
         </form>
       </div>
@@ -42,4 +48,4 @@ class GeneralInfo extends Component {
   }
 }
 
-export default GeneralInfo;
+export default PersonalInfo;

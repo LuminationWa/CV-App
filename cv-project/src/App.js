@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import GeneralInfo from "./Components/GeneralInfo";
+import PersonalInfo from "./Components/PersonalInfo";
 import EducationInfo from "./Components/EducationInfo";
 import ExperienceInfo from "./Components/ExperienceInfo";
 import Overview from "./Components/Overview";
@@ -9,10 +9,13 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      firstName: { text: "" },
-      lastName: { text: "" },
-      email: { text: "" },
-      phone: { text: "" },
+      personalInfo: {
+        id: uniqid(),
+        firstName: { text: "" },
+        lastName: { text: "" },
+        email: { text: "" },
+        phone: { text: "" },
+      },
       educationInfo: {
         id: uniqid(),
         schoolName: { text: "" },
@@ -20,58 +23,97 @@ class App extends Component {
         startDate: { text: "" },
         endDate: { text: "" },
       },
+      workExperience: {
+        id: uniqid(),
+        companyName: { text: "" },
+        position: { text: "" },
+        startDate: { text: "" },
+        endDate: { text: "" },
+      },
+      workExperienceArray: [],
       educationArray: [],
     };
   }
 
-  handleChange = (element, targetState) => {
-    this.setState({
-      [targetState]: {
-        text: element.target.value,
-      },
-    });
-    console.log(this.state);
+  handleChange = (element, targetState, targetInfo) => {
+    switch (targetState) {
+      case "personalInfo":
+        this.setState((prevState) => {
+          let personalInfo = Object.assign({}, prevState.personalInfo); // creates a copy of the state variable
+          personalInfo[targetInfo].text = element.target.value; // updates the target property
+          return { personalInfo }; // returns the new object
+        });
+        break;
+      case "educationInfo":
+        this.setState((prevState) => {
+          let educationInfo = Object.assign({}, prevState.educationInfo);
+          educationInfo[targetInfo].text = element.target.value;
+          return { educationInfo };
+        });
+        break;
+      case "workExperience":
+        this.setState((prevState) => {
+          let workExperience = Object.assign({}, prevState.workExperience);
+          workExperience[targetInfo].text = element.target.value;
+          return { workExperience };
+        });
+        break;
+    }
   };
 
-  handleChangeEducation = (element, targetState) => {
-    this.setState((prevState) => {
-      let educationInfo = Object.assign({}, prevState.educationInfo); // creating copy of state variable jasper
-      educationInfo[targetState] = element.target.value; // update the name property, assign a new value
-      return { educationInfo }; // return new object jasper object
-    });
-  };
-
-  onSubmit = (element) => {
-    element.preventDefault();
-    this.setState({
-      educationArray: this.state.tasks.concat(this.state.task),
-      educationInfo: {
-        id: uniqid(),
-        schoolName: { text: "" },
-        title: { text: "" },
-        startDate: { text: "" },
-        endDate: { text: "" },
-      },
-    });
+  onSubmitInfo = (targetState) => {
+    // Adds stored object into array so it can be mapped later / sets values back to default so a new object can be added
+    switch (targetState) {
+      case "educationInfo":
+        this.setState({
+          educationArray: this.state.educationArray.concat(
+            this.state.educationInfo
+          ),
+          educationInfo: {
+            id: uniqid(),
+            schoolName: { text: "" },
+            title: { text: "" },
+            startDate: { text: "" },
+            endDate: { text: "" },
+          },
+        });
+        break;
+      case "workExperience":
+        this.setState({
+          workExperienceArray: this.state.workExperienceArray.concat(
+            this.state.workExperience
+          ),
+          workExperience: {
+            id: uniqid(),
+            companyName: { text: "" },
+            position: { text: "" },
+            startDate: { text: "" },
+            endDate: { text: "" },
+          },
+        });
+        break;
+    }
   };
 
   render() {
     return (
       <div>
-        <form>
-          <GeneralInfo handleChange={this.handleChange.bind(this)} />
-          <EducationInfo
-            handleChange={this.handleChangeEducation.bind(this)}
-            onSubmit={this.onSubmit.bind(this)}
-          />
-          <ExperienceInfo handleChange={this.handleChange.bind(this)} />
-          <Overview
-            firstName={this.state.firstName.text}
-            lastName={this.state.lastName.text}
-            email={this.state.email.text}
-            phone={this.state.phone.text}
-          />
-        </form>
+        <PersonalInfo handleChange={this.handleChange.bind(this)} />
+        <EducationInfo
+          handleChange={this.handleChange.bind(this)}
+          onSubmitInfo={this.onSubmitInfo.bind(this)}
+          educationInfo={this.state.educationInfo}
+        />
+        <ExperienceInfo
+          handleChange={this.handleChange.bind(this)}
+          onSubmitInfo={this.onSubmitInfo.bind(this)}
+          workExperience={this.state.workExperience}
+        />
+        <Overview
+          personalInfo={this.state.personalInfo}
+          education={this.state.educationArray}
+          workExperience={this.state.workExperienceArray}
+        />
       </div>
     );
   }
