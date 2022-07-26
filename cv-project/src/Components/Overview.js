@@ -27,9 +27,9 @@ class Overview extends Component {
                 <li key={course.id}>
                   <h2>{course.schoolName.text}</h2>
                   <h2>{course.title.text}</h2>
-                  <h3>
+                  <h2>
                     From {course.startDate.text} to {course.endDate.text}
-                  </h3>
+                  </h2>
                 </li>
               );
             })}
@@ -43,9 +43,9 @@ class Overview extends Component {
                 <li key={job.id}>
                   <h2>{job.companyName.text}</h2>
                   <h2>{job.position.text}</h2>
-                  <h3>
+                  <h2>
                     From {job.startDate.text} to {job.endDate.text}
-                  </h3>
+                  </h2>
                 </li>
               );
             })}
