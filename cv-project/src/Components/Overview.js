@@ -22,7 +22,7 @@ class Overview extends Component {
         <div id="education">
           <h1>Education</h1>
           <ul>
-            {education.map((course) => {
+            {education.map((course, index) => {
               return (
                 <li key={course.id}>
                   <h2>{course.schoolName.text}</h2>
@@ -30,6 +30,13 @@ class Overview extends Component {
                   <h2>
                     From {course.startDate.text} to {course.endDate.text}
                   </h2>
+                  <button
+                    type="button"
+                    onClick={() => this.props.removeObject("education", index)}
+                    class="hidden"
+                  >
+                    Remove
+                  </button>
                 </li>
               );
             })}
@@ -38,7 +45,7 @@ class Overview extends Component {
         <div id="work-experience">
           <h1>Work experience</h1>
           <ul>
-            {workExperience.map((job) => {
+            {workExperience.map((job, index) => {
               return (
                 <li key={job.id}>
                   <h2>{job.companyName.text}</h2>
@@ -46,6 +53,15 @@ class Overview extends Component {
                   <h2>
                     From {job.startDate.text} to {job.endDate.text}
                   </h2>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      this.props.removeObject("workExperience", index)
+                    }
+                    class="hidden"
+                  >
+                    Remove
+                  </button>
                 </li>
               );
             })}

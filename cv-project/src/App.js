@@ -4,7 +4,7 @@ import EducationInfo from "./Components/EducationInfo";
 import ExperienceInfo from "./Components/ExperienceInfo";
 import Overview from "./Components/Overview";
 import uniqid from "uniqid";
-import "./styles/styles.css"
+import "./styles/styles.css";
 
 class App extends Component {
   constructor() {
@@ -35,6 +35,26 @@ class App extends Component {
       educationArray: [],
     };
   }
+
+  removeObject = (targetState, index) => {
+    // Creates a new array populated with all the same objects excluding the passed index one and assigns it as the state array
+    switch (targetState) {
+      case "workExperience":
+        this.setState({
+          workExperienceArray: this.state.workExperienceArray.filter(
+            (_, i) => i !== index
+          ),
+        });
+        break;
+      case "education":
+        this.setState({
+          educationArray: this.state.educationArray.filter(
+            (_, i) => i !== index
+          ),
+        });
+        break;
+    }
+  };
 
   handleChange = (element, targetState, targetInfo) => {
     switch (targetState) {
@@ -117,6 +137,7 @@ class App extends Component {
             personalInfo={this.state.personalInfo}
             education={this.state.educationArray}
             workExperience={this.state.workExperienceArray}
+            removeObject={this.removeObject.bind(this)}
           />
         </div>
       </div>

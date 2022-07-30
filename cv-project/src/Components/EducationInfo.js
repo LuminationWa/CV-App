@@ -10,7 +10,7 @@ class EducationInfo extends Component {
       <div>
         <h1>Education</h1>
         <form>
-          <label htmlFor="school-name">School name</label>
+          <label htmlFor="school-name">School</label>
           <input
             type="text"
             id="school-name"

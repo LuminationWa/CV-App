@@ -113,13 +113,37 @@ h1 {
 
 #overview div h1 {
     width: 100%;
+    border: 1px solid white;
 }
 
 #overview h2 {
     color: rgb(255, 234, 164);
 }
 
+#overview #personal-info h2 {
+    border: 1px solid white;
+}
+
 #overview ul {
     list-style: none;
 }
 
+#overview li {
+    border: 1px solid white;
+}
+
+#overview button {
+    width: 100px;
+    height: 25;
+    align-self: center;
+    border-radius: 5px;  
+}
+
+.hidden {
+    display: none;
+}
+
+
+#overview h2:hover + button.hidden, .hidden:hover {
+    display: inline-block;
+}
