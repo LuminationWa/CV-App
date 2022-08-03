@@ -1,11 +1,6 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
-class PersonalInfo extends Component {
-  constructor() {
-    super();
-  }
-
-  render() {
+const PersonalInfo = (props) => {
     return (
       <div>
         <h1>Personal information</h1>
@@ -15,8 +10,9 @@ class PersonalInfo extends Component {
             type="text"
             id="first-name"
             onChange={(e) =>
-              this.props.handleChange(e, "personalInfo", "firstName")
+              props.handleChange(e)
             }
+            name="firstName"
           />
           <label htmlFor="last-name">Last Name</label>
           <input
@@ -45,7 +41,6 @@ class PersonalInfo extends Component {
         </form>
       </div>
     );
-  }
 }
 
 export default PersonalInfo;
