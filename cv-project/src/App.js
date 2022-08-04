@@ -29,120 +29,99 @@ const App = () => {
     endDate: { text: "" },
   });
   const [workExperienceArray, setWorkExperienceArray] = useState([]);
-  const [educationArray, seteducationExperienceArray] = useState([]);
+  const [educationExperienceArray, setEducationExperienceArray] = useState([]);
 
-  // const removeObject = (targetState, index) => {
-  //   // Creates a new array populated with all the same objects excluding the passed index one and assigns it as the state array
-  //   switch (targetState) {
-  //     case "workExperience":
-  //       this.setState({
-  //         workExperienceArray: this.state.workExperienceArray.filter(
-  //           (_, i) => i !== index
-  //         ),
-  //       });
-  //       break;
-  //     case "education":
-  //       this.setState({
-  //         educationArray: this.state.educationArray.filter(
-  //           (_, i) => i !== index
-  //         ),
-  //       });
-  //       break;
-  //   }
-  // };
-
-  const handleChange = (e) => {
+  const handleChange = (e, targetState) => {
     const { name, value } = e.target;
-    setPersonalInfo(...prevState => ({
-      ...prevState,
-      [name] : {text: value}
-    }),
-    );
-    console.log(personalInfo);
-    // switch (targetState) {
-    //   case "personalInfo":
-    //     this.setState((prevState) => {
-    //       let personalInfo = Object.assign({}, prevState.personalInfo); // creates a copy of the state variable
-    //       personalInfo[targetInfo].text = element.target.value; // updates the target property
-    //       return { personalInfo }; // returns the new object
-    //     });
-    //     break;
-    //   case "educationInfo":
-    //     this.setState((prevState) => {
-    //       let educationInfo = Object.assign({}, prevState.educationInfo);
-    //       educationInfo[targetInfo].text = element.target.value;
-    //       return { educationInfo };
-    //     });
-    //     break;
-    //   case "workExperience":
-    //     this.setState((prevState) => {
-    //       let workExperience = Object.assign({}, prevState.workExperience);
-    //       workExperience[targetInfo].text = element.target.value;
-    //       return { workExperience };
-    //     });
-    //     break;
-    // }
+    switch (targetState) {
+      case "personalInfo":
+        setPersonalInfo((prevState) => ({
+          ...prevState,
+          [name]: { text: value },
+        }));
+        break;
+      case "educationInfo":
+        setEducationInfo((prevState) => ({
+          ...prevState,
+          [name]: { text: value },
+        }));
+        break;
+      case "workExperience":
+        setWorkExperience((prevState) => ({
+          ...prevState,
+          [name]: { text: value },
+        }));
+        break;
+    }
   };
 
-  // onSubmitInfo = (targetState) => {
-  //   // Adds stored object into array so it can be mapped later / sets values back to default so a new object can be added
-  //   switch (targetState) {
-  //     case "educationInfo":
-  //       this.setState({
-  //         educationArray: this.state.educationArray.concat(
-  //           this.state.educationInfo
-  //         ),
-  //         educationInfo: {
-  //           id: uniqid(),
-  //           schoolName: { text: "" },
-  //           title: { text: "" },
-  //           startDate: { text: "" },
-  //           endDate: { text: "" },
-  //         },
-  //       });
-  //       break;
-  //     case "workExperience":
-  //       this.setState({
-  //         workExperienceArray: this.state.workExperienceArray.concat(
-  //           this.state.workExperience
-  //         ),
-  //         workExperience: {
-  //           id: uniqid(),
-  //           companyName: { text: "" },
-  //           position: { text: "" },
-  //           startDate: { text: "" },
-  //           endDate: { text: "" },
-  //         },
-  //       });
-  //       break;
-  //   }
-  // };
-  console.log(personalInfo)
+  const onSubmitInfo = (targetState) => {
+    // Adds stored object into array so it can be mapped later / sets values back to default so a new object can be added
+    switch (targetState) {
+      case "educationInfo":
+        setEducationExperienceArray(
+          educationExperienceArray.concat(educationInfo)
+        );
+        setEducationInfo({
+          id: uniqid(),
+          schoolName: { text: "" },
+          title: { text: "" },
+          startDate: { text: "" },
+          endDate: { text: "" },
+        });
+        break;
+      case "workExperience":
+        setWorkExperienceArray(workExperienceArray.concat(workExperience));
+        setWorkExperience({
+          id: uniqid(),
+          companyName: { text: "" },
+          position: { text: "" },
+          startDate: { text: "" },
+          endDate: { text: "" },
+        });
+        break;
+    }
+  };
+  const removeObject = (targetState, index) => {
+    // Creates a new array populated with all the same objects excluding the passed index one and assigns it as the state array
+    switch (targetState) {
+      case "workExperience":
+        setWorkExperienceArray(
+          workExperienceArray.filter((_, i) => i !== index)
+        );
+        break;
+      case "education":
+        setEducationExperienceArray(
+          educationExperienceArray.filter((_, i) => i !== index)
+        );
+        break;
+    }
+  };
   return (
     <div id="main-content">
       <div id="form">
-        <PersonalInfo handleChange={handleChange.bind(this)} />
-        {/* <EducationInfo
-          handleChange={this.handleChange.bind(this)}
-          onSubmitInfo={this.onSubmitInfo.bind(this)}
-          educationInfo={this.state.educationInfo}
+        <PersonalInfo handleChange={handleChange} />
+        <EducationInfo
+          handleChange={handleChange}
+          onSubmitInfo={onSubmitInfo}
+          educationInfo={educationInfo}
         />
         <ExperienceInfo
-          handleChange={this.handleChange.bind(this)}
-          onSubmitInfo={this.onSubmitInfo.bind(this)}
-          workExperience={this.state.workExperience}
+          handleChange={handleChange}
+          onSubmitInfo={onSubmitInfo}
+          workExperience={workExperience}
         />
       </div>
       <div id="overview">
         <Overview
-          personalInfo={this.state.personalInfo}
-          education={this.state.educationArray}
-          workExperience={this.state.workExperienceArray}
-          removeObject={this.removeObject.bind(this)}
-        /> */}
+          personalInfo={personalInfo}
+          education={educationExperienceArray}
+          workExperience={workExperienceArray}
+          removeObject={removeObject}
+        />
       </div>
     </div>
   );
-}
+};
 
 export default App;
